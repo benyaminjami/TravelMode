@@ -3,7 +3,7 @@ library(readr)
 library(dplyr)
 library(pracma)
 library(tidyr)
-data = read_csv('PycharmProjects/TravelMode/data/NormalizationTest/Normalized.csv')
+data = read_csv('Normalized.csv')
 
 data %>% select(Milliseconds,AccelerometerLinearX,AccelerometerLinearY,AccelerometerLinearZ) %>% 
   gather()  
@@ -26,3 +26,4 @@ highchart() %>%
   hc_add_series(data,name = "XMAF","line",hcaes(Milliseconds,AccelerometerLinearXMAf)) %>% 
   hc_add_series(data,name = "YMAF","line",hcaes(Milliseconds,AccelerometerLinearYMAf)) %>%
   hc_add_series(data,name = "ZMAF","line",hcaes(Milliseconds,AccelerometerLinearZMAf)) 
+

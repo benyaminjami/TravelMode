@@ -42,10 +42,10 @@ def all2one_normalized(path):
 if __name__ == '__main__':
 
     from FileLoader import all2one
-    path = './data/NormalizationTest'
-    df = all2one(path)
+    path = 'data/WalkCarClustering'
+    df = all2one(path+'/Walk')
     Normalization(df)
-    df.to_csv(path+'/Normalized.csv',sep=',')
+    df.to_csv(path+'/Walk/Normalized.csv',sep=',',index=False)
     print(1)
 #
 #
