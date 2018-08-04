@@ -1,4 +1,4 @@
-from transforms3d import axangles as tf
+import transforms3d
 import pandas as pd
 import numpy as np
 import math
@@ -32,7 +32,7 @@ def normalization(df):
         axis = rotation_vector.iloc[row, 1:4].values
         angle = 2 * math.acos(rotation_vector.iloc[row, 4])
 
-        rotation_matrix = tf.axangle2mat(axis, angle)
+        rotation_matrix = transforms3d.axangles.axangle2mat(axis, angle)
         for sensor in df_sensors:
             sensor_data = df.ix[row][[sensor + 'X', sensor + 'Y', sensor + 'Z']]
             normalized_row = np.matmul(rotation_matrix, np.asarray(sensor_data))
@@ -49,7 +49,7 @@ def all2one_normalized(path):
 if __name__ == '__main__':  # for testing the function
     from FileLoader import all2one
 
-    path = 'data/WalkCarClustering'
-    df = all2one_normalized(path + '/Walk')
+    path = 'data/MoveDirectionNormalization/Walk/'
+    df = all2one_normalized(path)
     normalization(df)
-    df.to_csv(path + '/Walk/Normalized.csv', sep=',', index=False)
+    df.to_csv(path + 'Normalized.csv', sep=',', index=False)
