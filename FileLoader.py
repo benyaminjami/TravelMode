@@ -12,7 +12,7 @@ def all2one(path):
     result = pd.DataFrame
     flag = True
     for file in os.listdir(path):
-        if not (os.path.isdir(path + '/' + file) and file != 'Normalized.csv'):
+        if not (os.path.isdir(path + '/' + file) and file == 'Normalized.csv'):
             df = pd.read_csv(path + '/' + file)
             newColumns = []
             df['Milliseconds'] = np.floor(df['Milliseconds']//25)*25

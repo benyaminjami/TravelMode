@@ -3,13 +3,10 @@ import pandas as pd
 import numpy as np
 import math
 import os
+from FileLoader import all2one
 
 
-def Normalization(df):
-    # output_path = path + '/Normalized/'
-    # if not os.path.exists(output_path):
-    #     os.makedirs(output_path)
-    # pd.DataFrame(rotation_vector).to_csv(output_path+'RotationVector.csv',sep=',')
+def normalization(df):
     rotation_vector = df[['Milliseconds','RotationVectorX', 'RotationVectorY', 'RotationVectorZ', 'RotationVectorcos']]
 
     sensors = ['AccelerometerLinear', 'Accelerometer', 'Gravity', 'Compass', 'Gyroscope']
@@ -33,34 +30,14 @@ def Normalization(df):
     return df
 
 def all2one_normalized(path):
-    from FileLoader import all2one
-    path = './data/NormalizationTest'
     df = all2one(path)
-    return Normalization(df)
+    return normalization(df)
 
 
 if __name__ == '__main__':
 
     from FileLoader import all2one
     path = 'data/WalkCarClustering'
-    df = all2one(path+'/Walk')
-    Normalization(df)
+    df = all2one_normalized(path+'/Walk')
+    normalization(df)
     df.to_csv(path+'/Walk/Normalized.csv',sep=',',index=False)
-    print(1)
-#
-#
-#
-# rotated_gravity
-#     gravity = pd.read_csv(path + 'Gravity.csv')
-#     rotated_gravity = pd.DataFrame()
-#
-#     for row in range(0, len(gravity)):
-#         axis = rotation_vector.iloc[row, 1:4].values
-#         angle = math.acos(rotation_vector.iloc[row, 4])
-#
-#         rotation_matrix = tf.axangle2mat(axis, 2 * angle, is_normalized=False)
-#
-#         rotated = pd.DataFrame([np.matmul(rotation_matrix, gravity.iloc[row, 1:4])])
-#
-#         rotated_gravity = rotated_gravity.append(rotated)
-# print(rotated_gravity.head())
